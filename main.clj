@@ -212,4 +212,4 @@
   [expensesdb]
   (let [decrement (map dec2020 expensesdb)
         part (some (set decrement) expensesdb)]
-    (println (* (- 2020 part) part))))
+    (println (* (- 2020 part) part)))) ;; => 731731
