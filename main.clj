@@ -42,3 +42,38 @@
                    :when (= (+ x y z) 2020)]
                [x y z])]
     (reduce * (first nums)))) ;; => 116115990
+
+;;2-1
+(def inputs
+  (with-open [rdr (clojure.java.io/reader "/Users/stefan/Projects/Personal/input.txt")]
+    (reduce conj [] (line-seq rdr))))
+
+(defn cleanup
+  [input]
+  (let [spaces (clojure.string/replace input "-" " ")
+        dashes (clojure.string/replace spaces ":" "")]
+    (clojure.string/split dashes #"\s"))) ;; returns something like ["1-3-a-1235"]
+
+(def inputs-clean
+  (mapv cleanup inputs)) ;; vector of vectors [[min-max-l-pwd] [min-max-l-pwd]]
+
+(defn is-valid
+  [[min max letter pwd]]
+  (let [min-int (Integer/parseInt min)
+        max-int (Integer/parseInt max)
+        letter-char (first (char-array letter))
+        fr (frequencies pwd)]
+    (if (some? (fr letter-char))
+      (if (<= min-int (fr letter-char) max-int)
+        1
+        0)
+      0))) ;; checks if any single password is valid
+
+(defn count-valid
+  [passdb]
+  (loop [remaining-pwd passdb
+         valid-pwd []]
+    (if (empty? remaining-pwd)
+      (reduce + valid-pwd)
+      (let [[pwd & remaining] remaining-pwd]
+        (recur remaining (into valid-pwd (vector (is-valid pwd)))))))) ;; checks all passwords in inputs-clean => 586
