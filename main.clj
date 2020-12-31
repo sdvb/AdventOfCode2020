@@ -74,7 +74,7 @@
   (loop [remaining-pwd passdb
          valid-pwd []]
     (if (empty? remaining-pwd)
-      ;; loopig over each password we end up with a vector like [1 0 0 1 0] 
+      ;; looping over each password we end up with a vector like [1 0 0 1 0] 
       ;; and just sum up valid ones
       (reduce + valid-pwd) ;; => 586
       (let [[pwd & remaining] remaining-pwd]
