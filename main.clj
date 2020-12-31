@@ -52,7 +52,7 @@
   [input]
   (let [spaces (clojure.string/replace input "-" " ")
         dashes (clojure.string/replace spaces ":" "")]
-    (clojure.string/split dashes #"\s"))) ;; returns something like ["1-3-a-afkja"]
+    (clojure.string/split dashes #"\s"))) ;; returns something like ["1 "3" "a" "afkja"]
 
 (def inputs-clean
   (mapv cleanup inputs)) ;; vector of vectors [[min-max-l-pwd] [min-max-l-pwd]]
